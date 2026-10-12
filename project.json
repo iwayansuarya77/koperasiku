@@ -1,0 +1,25 @@
+{
+  "overview": "Aplikasi koperasi simpan pinjam lengkap dengan dashboard, hak akses berjenjang, master anggota dan COA, simpanan, pinjaman, jurnal otomatis, dan laporan keuangan real-time.",
+  "features": [
+    "Dashboard dengan grafik arus kas 30 hari",
+    "Login dan hak akses Admin, Kasir, Supervisor",
+    "Master Anggota dan Master COA",
+    "Simpanan dengan jenis dan akun kas yang dapat dipilih",
+    "Pinjaman dengan metode Anuitas dan Menurun",
+    "Angsuran fleksibel dan denda otomatis",
+    "Jurnal otomatis, Jurnal Umum, dan Buku Besar",
+    "Neraca Saldo, Laba Rugi, Neraca, dan SHU real-time",
+    "Cetak bukti transaksi PDF dan export Excel",
+    "Import CSV simpanan awal dan backup database",
+    "Modul tutup bulan dan tutup tahun"
+  ],
+  "category": "business-management",
+  "tags": [
+    "koperasi",
+    "keuangan",
+    "akuntansi",
+    "simpan-pinjam",
+    "manajemen"
+  ],
+  "last_updated": "2026-10-12T00:45:58.386Z"
+}

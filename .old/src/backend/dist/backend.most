@@ -1,0 +1,370 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type AccountCode__552568614 = Text;
+type AccountType__1027383555 =
+  {#asset; #equity; #expense; #liability; #revenue};
+type Account__410080625 =
+  {
+    accountType : AccountType__1027383555;
+    code : AccountCode__552568614;
+    isActive : Bool;
+    name : Text
+  };
+type Account__759299946 =
+  {
+    accountType : {#asset; #equity; #expense; #liability; #revenue};
+    code : Text;
+    isActive : Bool;
+    name : Text
+  };
+type AccountingState__315477351 =
+  {var nextJournalId : Nat; var nextTransactionNumber : Nat};
+type AuthState__924202157 = {var currentSession : ?Nat; var nextUserId : Nat};
+type CoaState__749517315 = {var nextAccountCode : Nat};
+type DashboardState__668475499 =
+  {
+    var lastMonthlyClose : ?PeriodClose__739302151;
+    var lastYearlyClose : ?PeriodClose__739302151;
+    var logoUrl : Text
+  };
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type Installment__837156804 =
+  {
+    amount : Float;
+    id : Nat;
+    loanId : Nat;
+    paidAt : Nat;
+    transactionNumber : Text
+  };
+type Installment__92371006 =
+  {
+    amount : Float;
+    id : LoanId__798571042;
+    loanId : LoanId__798571042;
+    paidAt : Timestamp__301639476;
+    transactionNumber : TransactionNumber__909921379
+  };
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type JournalEntry__552266171 =
+  {
+    createdAt : Nat;
+    description : Text;
+    id : Nat;
+    kind :
+      {
+        #cashIn;
+        #cashOut;
+        #loanDisbursement;
+        #loanInstallment;
+        #loanInterest;
+        #manualJournal;
+        #penalty;
+        #savingsDeposit;
+        #savingsInterest;
+        #savingsWithdrawal
+      };
+    lines : [JournalLine__578136423];
+    transactionNumber : Text
+  };
+type JournalEntry__734203721 =
+  {
+    createdAt : Timestamp__301639476;
+    description : Text;
+    id : JournalId__519664709;
+    kind : TransactionKind__247017751;
+    lines : [JournalLine__1011272339];
+    transactionNumber : TransactionNumber__909921379
+  };
+type JournalId__519664709 = Nat;
+type JournalLine__1011272339 =
+  {accountCode : AccountCode__552568614; credit : Float; debit : Float};
+type JournalLine__578136423 =
+  {accountCode : Text; credit : Float; debit : Float};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type LoanId__798571042 = Nat;
+type LoanMethod__557816834 = {#anuitas; #menurun};
+type LoanState__544614013 =
+  {
+    var nextInstallmentId : Nat;
+    var nextLoanId : Nat;
+    var nextLoanNumber : Nat
+  };
+type Loan__111832984 =
+  {
+    disbursedAt : Timestamp__301639476;
+    id : LoanId__798571042;
+    interestRate : Float;
+    isClosed : Bool;
+    loanNumber : Text;
+    memberId : MemberId__2990653;
+    method : LoanMethod__557816834;
+    penaltyMonths : Nat;
+    penaltyRate : Float;
+    principal : Float;
+    remainingPrincipal : Float;
+    termMonths : Nat
+  };
+type Loan__907687807 =
+  {
+    disbursedAt : Nat;
+    id : Nat;
+    interestRate : Float;
+    isClosed : Bool;
+    loanNumber : Text;
+    memberId : Nat;
+    method : {#anuitas; #menurun};
+    penaltyMonths : Nat;
+    penaltyRate : Float;
+    principal : Float;
+    remainingPrincipal : Float;
+    termMonths : Nat
+  };
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type MemberId__2990653 = Nat;
+type MemberState__705173590 = {var nextMemberId : Nat};
+type Member__276774007 =
+  {
+    address : Text;
+    email : Text;
+    id : MemberId__2990653;
+    isActive : Bool;
+    joinedAt : Timestamp__301639476;
+    memberNumber : Text;
+    name : Text;
+    phone : Text
+  };
+type Member__563520927 =
+  {
+    address : Text;
+    email : Text;
+    id : Nat;
+    isActive : Bool;
+    joinedAt : Nat;
+    memberNumber : Text;
+    name : Text;
+    phone : Text
+  };
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__705149831 =
+  {
+    accessControlState : AccessControlState__201339279;
+    accountingState : AccountingState__315477351;
+    accounts : Map__230067015<Text, Account__759299946>;
+    authState : AuthState__924202157;
+    coaState : CoaState__749517315;
+    dashboardState : DashboardState__668475499;
+    installments : Map__230067015<Nat, Installment__837156804>;
+    journals : Map__230067015<Nat, JournalEntry__552266171>;
+    loanState : LoanState__544614013;
+    loans : Map__230067015<Nat, Loan__907687807>;
+    memberEmails : Map__230067015<Nat, Text>;
+    memberState : MemberState__705173590;
+    members : Map__230067015<Nat, Member__563520927>;
+    savingsBalances : Map__230067015<(Nat, Nat), SavingsBalance__694657793>;
+    savingsState : SavingsState__568184478;
+    savingsTransactions : Map__230067015<Nat, SavingsTransaction__658250276>;
+    savingsTypes : Map__230067015<Nat, SavingsType__459100984>;
+    users : Map__230067015<Nat, UserAccount__34884178>
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type OldActor__625272489 = {};
+type PeriodClose__135464781 =
+  {
+    closedAt : Timestamp__301639476;
+    closedBy : UserId__158757552;
+    period : Text
+  };
+type PeriodClose__739302151 = {closedAt : Nat; closedBy : Nat; period : Text};
+type Role__300349085 = {#admin; #kasir; #supervisor};
+type SavingsBalance__694657793 =
+  {balance : Float; memberId : Nat; savingsTypeId : Nat};
+type SavingsBalance__989645738 =
+  {
+    balance : Float;
+    memberId : MemberId__2990653;
+    savingsTypeId : SavingsId__856065064
+  };
+type SavingsId__856065064 = Nat;
+type SavingsState__568184478 =
+  {
+    var nextSavingsTransactionId : Nat;
+    var nextSavingsTypeId : Nat;
+    var nextTransactionNumber : Nat
+  };
+type SavingsTransaction__658250276 =
+  {
+    amount : Float;
+    cashAccountCode : Text;
+    createdAt : Nat;
+    id : Nat;
+    isDeposit : Bool;
+    memberId : Nat;
+    savingsTypeId : Nat;
+    transactionNumber : Text
+  };
+type SavingsTransaction__832515473 =
+  {
+    amount : Float;
+    cashAccountCode : AccountCode__552568614;
+    createdAt : Timestamp__301639476;
+    id : SavingsId__856065064;
+    isDeposit : Bool;
+    memberId : MemberId__2990653;
+    savingsTypeId : SavingsId__856065064;
+    transactionNumber : TransactionNumber__909921379
+  };
+type SavingsType__459100984 =
+  {
+    cashAccountCode : Text;
+    id : Nat;
+    interestRate : Float;
+    isActive : Bool;
+    name : Text
+  };
+type SavingsType__650449010 =
+  {
+    cashAccountCode : AccountCode__552568614;
+    id : SavingsId__856065064;
+    interestRate : Float;
+    isActive : Bool;
+    name : Text
+  };
+type Timestamp__301639476 = Nat;
+type TransactionKind__247017751 =
+  {
+    #cashIn;
+    #cashOut;
+    #loanDisbursement;
+    #loanInstallment;
+    #loanInterest;
+    #manualJournal;
+    #penalty;
+    #savingsDeposit;
+    #savingsInterest;
+    #savingsWithdrawal
+  };
+type TransactionNumber__909921379 = Text;
+type UserAccount__34884178 =
+  {
+    createdAt : Nat;
+    id : Nat;
+    isActive : Bool;
+    passwordHash : Text;
+    role : {#admin; #kasir; #supervisor};
+    username : Text
+  };
+type UserAccount__389869349 =
+  {
+    createdAt : Timestamp__301639476;
+    id : UserId__158757552;
+    isActive : Bool;
+    passwordHash : Text;
+    role : Role__300349085;
+    username : Text
+  };
+type UserId__158757552 = Nat;
+type UserRole__91647283 = {#admin; #guest; #user};
+{
+  "20261009_000000" : OldActor__625272489 -> NewActor__705149831
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable accountingState :
+    {
+      var nextJournalId : JournalId__519664709;
+      var nextTransactionNumber : Nat
+    };
+  stable accounts :
+    {
+      var root : Node__204828119<AccountCode__552568614, Account__410080625>;
+      var size : Nat__227979830
+    };
+  stable authState :
+    {
+      var currentSession : ?UserId__158757552;
+      var nextUserId : UserId__158757552
+    };
+  stable coaState : {var nextAccountCode : Nat};
+  stable dashboardState :
+    {
+      var lastMonthlyClose : ?PeriodClose__135464781;
+      var lastYearlyClose : ?PeriodClose__135464781;
+      var logoUrl : Text
+    };
+  stable installments :
+    {
+      var root : Node__204828119<LoanId__798571042, Installment__92371006>;
+      var size : Nat__227979830
+    };
+  stable journals :
+    {
+      var root :
+        Node__204828119<JournalId__519664709, JournalEntry__734203721>;
+      var size : Nat__227979830
+    };
+  stable loanState :
+    {
+      var nextInstallmentId : LoanId__798571042;
+      var nextLoanId : LoanId__798571042;
+      var nextLoanNumber : Nat
+    };
+  stable loans :
+    {
+      var root : Node__204828119<LoanId__798571042, Loan__111832984>;
+      var size : Nat__227979830
+    };
+  stable memberEmails :
+    {
+      var root : Node__204828119<MemberId__2990653, Text>;
+      var size : Nat__227979830
+    };
+  stable memberState : {var nextMemberId : MemberId__2990653};
+  stable members :
+    {
+      var root : Node__204828119<MemberId__2990653, Member__276774007>;
+      var size : Nat__227979830
+    };
+  stable savingsBalances :
+    {
+      var root :
+        Node__204828119<(MemberId__2990653, SavingsId__856065064),
+                         SavingsBalance__989645738>;
+      var size : Nat__227979830
+    };
+  stable savingsState :
+    {
+      var nextSavingsTransactionId : SavingsId__856065064;
+      var nextSavingsTypeId : SavingsId__856065064;
+      var nextTransactionNumber : Nat
+    };
+  stable savingsTransactions :
+    {
+      var root :
+        Node__204828119<SavingsId__856065064, SavingsTransaction__832515473>;
+      var size : Nat__227979830
+    };
+  stable savingsTypes :
+    {
+      var root : Node__204828119<SavingsId__856065064, SavingsType__650449010>;
+      var size : Nat__227979830
+    };
+  stable users :
+    {
+      var root : Node__204828119<UserId__158757552, UserAccount__389869349>;
+      var size : Nat__227979830
+    }
+};

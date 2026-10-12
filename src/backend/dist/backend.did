@@ -1,0 +1,366 @@
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserId = nat;
+type UserAccountView = 
+ record {
+   createdAt: Timestamp;
+   id: UserId;
+   isActive: bool;
+   role: Role;
+   username: text;
+ };
+type TrialBalanceRow = 
+ record {
+   accountCode: AccountCode;
+   accountName: text;
+   credit: float64;
+   debit: float64;
+ };
+type TransactionNumber = text;
+type TransactionKind = 
+ variant {
+   cashIn;
+   cashOut;
+   loanDisbursement;
+   loanInstallment;
+   loanInterest;
+   manualJournal;
+   penalty;
+   savingsDeposit;
+   savingsInterest;
+   savingsWithdrawal;
+ };
+type Timestamp = nat;
+type ShuReport = 
+ record {
+   shu: float64;
+   totalExpense: float64;
+   totalRevenue: float64;
+ };
+type SavingsType = 
+ record {
+   cashAccountCode: AccountCode;
+   id: SavingsId;
+   interestRate: float64;
+   isActive: bool;
+   name: text;
+ };
+type SavingsTransaction = 
+ record {
+   amount: float64;
+   cashAccountCode: AccountCode;
+   createdAt: Timestamp;
+   id: SavingsId;
+   isDeposit: bool;
+   memberId: MemberId;
+   savingsTypeId: SavingsId;
+   transactionNumber: TransactionNumber;
+ };
+type SavingsId = nat;
+type SavingsBalance = 
+ record {
+   balance: float64;
+   memberId: MemberId;
+   savingsTypeId: SavingsId;
+ };
+type Role = 
+ variant {
+   admin;
+   kasir;
+   supervisor;
+ };
+type Result__2 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result__1 = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type Result_9 = 
+ variant {
+   err: text;
+   ok: Loan;
+ };
+type Result_8 = 
+ variant {
+   err: text;
+   ok: MemberId;
+ };
+type Result_7 = 
+ variant {
+   err: text;
+   ok: SavingsId;
+ };
+type Result_6 = 
+ variant {
+   err: text;
+   ok: UserId;
+ };
+type Result_5 = 
+ variant {
+   err: text;
+   ok: UserAccountView;
+ };
+type Result_4 = 
+ variant {
+   err: text;
+   ok: JournalId;
+ };
+type Result_3 = 
+ variant {
+   err: text;
+   ok: Installment;
+ };
+type Result_2 = 
+ variant {
+   err: text;
+   ok: SavingsTransaction;
+ };
+type Result_11 = 
+ variant {
+   err: text;
+   ok: float64;
+ };
+type Result_10 = 
+ variant {
+   err: text;
+   ok: AccountCode;
+ };
+type Result_1 = 
+ variant {
+   err: text;
+   ok: nat;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok;
+ };
+type MemberId = nat;
+type Member = 
+ record {
+   address: text;
+   email: text;
+   id: MemberId;
+   isActive: bool;
+   joinedAt: Timestamp;
+   memberNumber: text;
+   name: text;
+   phone: text;
+ };
+type LoanMethod = 
+ variant {
+   anuitas;
+   menurun;
+ };
+type LoanId = nat;
+type Loan = 
+ record {
+   disbursedAt: Timestamp;
+   id: LoanId;
+   interestRate: float64;
+   isClosed: bool;
+   loanNumber: text;
+   memberId: MemberId;
+   method: LoanMethod;
+   penaltyMonths: nat;
+   penaltyRate: float64;
+   "principal": float64;
+   remainingPrincipal: float64;
+   termMonths: nat;
+ };
+type LedgerEntry = 
+ record {
+   accountCode: AccountCode;
+   balance: float64;
+   createdAt: Timestamp;
+   credit: float64;
+   debit: float64;
+   description: text;
+   transactionNumber: TransactionNumber;
+ };
+type JournalLine = 
+ record {
+   accountCode: AccountCode;
+   credit: float64;
+   debit: float64;
+ };
+type JournalId = nat;
+type JournalEntry = 
+ record {
+   createdAt: Timestamp;
+   description: text;
+   id: JournalId;
+   kind: TransactionKind;
+   lines: vec JournalLine;
+   transactionNumber: TransactionNumber;
+ };
+type Installment = 
+ record {
+   amount: float64;
+   id: LoanId;
+   loanId: LoanId;
+   paidAt: Timestamp;
+   transactionNumber: TransactionNumber;
+ };
+type IncomeStatementRow = 
+ record {
+   accountCode: AccountCode;
+   accountName: text;
+   amount: float64;
+ };
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type DashboardStats = 
+ record {
+   memberCount: nat;
+   totalLoans: float64;
+   totalSavings: float64;
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+type CashFlowPoint = 
+ record {
+   balance: float64;
+   date: Timestamp;
+ };
+type BalanceSheetRow = 
+ record {
+   accountCode: AccountCode;
+   accountName: text;
+   amount: float64;
+ };
+type AccountType = 
+ variant {
+   asset;
+   equity;
+   expense;
+   liability;
+   revenue;
+ };
+type AccountCode = text;
+type Account = 
+ record {
+   accountType: AccountType;
+   code: AccountCode;
+   isActive: bool;
+   name: text;
+ };
+service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__2);
+  _internet_identity_sign_in_start: () -> (blob);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  assignUserRole: (userId: UserId, role: Role) -> (Result);
+  backupDatabase: () -> (text) query;
+  calculatePenalty: (loanId: LoanId, unpaidMonths: nat) -> (Result_11) query;
+  changeOwnPassword: (oldPassword: text, newPassword: text) -> (Result);
+  clearTransactionData: (confirmation: text) -> (Result);
+  closeMonth: (period: text) -> (Result);
+  closeYear: (period: text) -> (Result);
+  createAccount: (name: text, accountType: AccountType) -> (Result_10);
+  createLoan: (memberId: MemberId, "principal": float64, interestRate:
+   float64, method: LoanMethod, termMonths: nat, penaltyMonths: nat,
+   penaltyRate: float64) -> (Result_9);
+  createMember: (memberNumber: text, name: text, address: text, phone: 
+   text, email: text) -> (Result_8);
+  createSavingsType: (name: text, interestRate: float64, cashAccountCode:
+   AccountCode) -> (Result_7);
+  createUserAccount: (username: text, password: text, role: Role) ->
+   (Result_6);
+  deleteAccount: (code: AccountCode) -> (Result);
+  deleteMember: (memberId: MemberId) -> (Result);
+  disburseLoan: (loanId: LoanId) -> (Result);
+  execute: (qJson: text) -> (Result__1) query;
+  getAccount: (code: AccountCode) -> (opt Account) query;
+  getApiDoc: () -> (text) query;
+  getBalanceSheet: () -> (vec BalanceSheetRow) query;
+  getCallerRole: () -> (opt Role) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getCashFlow: (days: nat) -> (vec LedgerEntry) query;
+  getCashFlow30Days: () -> (vec CashFlowPoint) query;
+  getDashboardStats: () -> (DashboardStats) query;
+  getIncomeStatement: () -> (vec IncomeStatementRow) query;
+  getLedger: (accountCode: AccountCode) -> (vec LedgerEntry) query;
+  getLogo: () -> (text) query;
+  getMember: (memberId: MemberId) -> (opt Member) query;
+  getSavingsBalance: (memberId: MemberId, savingsTypeId: SavingsId) ->
+   (float64) query;
+  getShu: () -> (ShuReport) query;
+  getTrialBalance: () -> (vec TrialBalanceRow) query;
+  importInitialSavingsBalances: (rows:
+   vec record {
+         MemberId;
+         SavingsId;
+         float64;
+       }) -> (Result_1);
+  isCallerAdmin: () -> (bool) query;
+  listAccounts: () -> (vec Account) query;
+  listInstallments: (loanId: LoanId) -> (vec Installment) query;
+  listJournals: () -> (vec JournalEntry) query;
+  listLoans: (memberId: MemberId) -> (vec Loan) query;
+  listMembers: () -> (vec Member) query;
+  listSavingsBalances: (memberId: MemberId) -> (vec SavingsBalance) query;
+  listSavingsTransactions: (memberId: MemberId) ->
+   (vec SavingsTransaction) query;
+  listSavingsTypes: () -> (vec SavingsType) query;
+  listUserAccounts: () -> (vec UserAccountView) query;
+  login: (username: text, password: text) -> (Result_5);
+  logout: () -> ();
+  postCashEntry: (description: text, lines: vec JournalLine, isCashIn:
+   bool) -> (Result_4);
+  postManualJournal: (description: text, lines: vec JournalLine) ->
+   (Result_4);
+  postMonthlyLoanInterest: () -> (Result_1);
+  postMonthlySavingsInterest: () -> (Result_1);
+  recordInstallment: (loanId: LoanId, amount: float64) -> (Result_3);
+  recordSavingsTransaction: (memberId: MemberId, savingsTypeId: SavingsId,
+   cashAccountCode: AccountCode, amount: float64, isDeposit: bool) ->
+   (Result_2);
+  schema: () -> (text) query;
+  searchMembers: (term: text) -> (vec Member) query;
+  sendDueReminders: () -> (Result_1);
+  updateAccount: (account: Account) -> (Result);
+  updateMember: (member: Member) -> (Result);
+  updateSavingsType: (savingsType: SavingsType) -> (Result);
+  uploadLogo: (logoUrl: text) -> (Result);
+}
